@@ -1,0 +1,55 @@
+<!-- documento.component.html -->
+<div class="flex flex-col items-center justify-center min-h-screen 
+bg-gradient-to-b from-white via-gray-200 to-gray-400 text-black">
+  <!-- Logo y menú superior (opcional) -->
+  <!-- <nav class="w-full flex justify-between items-center py-4 px-8">
+    <div class="text-2xl font-bold text-red-600">PDF Generator</div>
+    <div class="flex gap-6 text-gray-700">
+      <a href="#">Unir PDF</a>
+      <a href="#">Dividir PDF</a>
+      <a href="#">Comprimir PDF</a>
+      <a href="#">Convertir PDF</a>
+    </div>
+    <div>
+      <button class="bg-red-500 text-white px-4 py-2 rounded">Registro</button>
+    </div>
+  </nav> -->
+
+  <h1 class="text-5xl font-bold mt-4 mb-4">Convierte imágenes a PDF</h1>
+  <p class="text-lg mb-2">Convierte tus imágenes en PDF con el formato de cedulo o certificado de votacion ecuatoriano.</p>
+  <p class="text-gray-500 mb-8">Con la tecnología de PDF Generator.</p>
+
+  <div class="flex flex-col items-center">
+    <label class="bg-gray-800 hover:bg-gray-900 text-white text-xl font-semibold px-8 py-6 rounded-lg cursor-pointer flex items-center gap-4 shadow-lg mb-4">
+      <span>Seleccionar imágenes</span>
+      <input type="file" (change)="onFileSelected($event)" multiple class="hidden" />
+      <!-- Íconos de servicios (opcional) -->
+      <!-- <span class="flex gap-2">
+        <i class="fab fa-google-drive text-2xl"></i>
+        <i class="fab fa-dropbox text-2xl"></i>
+      </span> -->
+    </label>
+    <span class="text-gray-500">o arrastra y suelta las imágenes aquí</span>
+  </div>
+
+  <!-- Preview -->
+  <div *ngIf="pdfUrl" class="preview mt-8 w-full max-w-2xl">
+    <iframe [src]="pdfUrl" width="100%" height="500px" class="rounded shadow"></iframe>
+  </div>
+
+  <!-- Botones -->
+  <div class="acciones flex gap-4 mt-8" *ngIf="pdfUrl">
+    <button (click)="toggleInvertir()" class="bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded shadow">Invertir imágenes</button>
+    <button (click)="continuar()" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-2 rounded shadow">Continuar</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-40" *ngIf="mostrarModal">
+    <div class="modal-content bg-white rounded-lg p-8 shadow-lg text-center">
+      <h3 class="text-2xl font-bold mb-4">Documento listo</h3>
+      <button class="btn-descargar bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded mb-4" (click)="downloadPdf()">⬇ Descargar PDF</button>
+      <br />
+      <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded" (click)="mostrarModal = false">Cerrar</button>
+    </div>
+  </div>
+</div>
