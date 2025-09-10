@@ -9,23 +9,21 @@ def create_pdf(files):
     c = canvas.Canvas(buffer, pagesize=A4)
     width, height = A4
 
-    # Posiciones de las imágenes (arriba y separadas)
-    x_positions = [100, 350]
+    x_positions = [90, 340]
     y_position = height - 250  
 
     for i, file in enumerate(files):
         img = Image.open(file.stream)
-        img.thumbnail((200, 200))  # reducir tamaño
 
-        # 👇 Si la imagen tiene transparencia, conviértela a RGB
         if img.mode == "RGBA":
             img = img.convert("RGB")
 
-        # 👇 Usar ImageReader en lugar de BytesIO
         img_reader = ImageReader(img)
 
-        c.drawImage(img_reader, x_positions[i], y_position, width=200, height=200)
+        # Aquí defines el tamaño con drawImage, no con thumbnail
+        c.drawImage(img_reader, x_positions[i], y_position, width=200, height=200, preserveAspectRatio=True, anchor='c')
 
     c.save()
     buffer.seek(0)
     return buffer
+
